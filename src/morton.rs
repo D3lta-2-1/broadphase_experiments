@@ -15,8 +15,6 @@ pub fn to_hilbert(pos: Vector3<i32>) -> u128 {
     hilbert_encode(arr)
 }
 
-
-
 pub fn to_morton(pos: Vector3<i32>) -> u128 {
     let x = morton_partition_3(pos.x);
     let y = morton_partition_3(pos.y);

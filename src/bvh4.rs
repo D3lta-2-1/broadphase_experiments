@@ -68,10 +68,10 @@ impl BVH {
         self.nodes.reserve(2 * len - 1);
 
         //sort unstable is a bunch of garbage, maybe there is another better way to do it, for BVH 5 I'll lik
-        let mut morton_indices = leaves.par_iter().enumerate().map(|(i, aabb)| (to_hilbert(aabb.center().block_pos()), i)).collect::<Vec<_>>();
-        morton_indices.par_sort_unstable_by_key(|(morton, _)| *morton);
+        let mut hilbert_indices = leaves.par_iter().enumerate().map(|(i, aabb)| (to_hilbert(aabb.center().block_pos()), i)).collect::<Vec<_>>();
+        hilbert_indices.par_sort_unstable_by_key(|(morton, _)| *morton);
 
-        let iter = morton_indices.into_par_iter().map(|(_, i)| Node { aabb: leaves[i], kind: NodeKind::Leaf });
+        let iter = hilbert_indices.into_par_iter().map(|(_, i)| Node { aabb: leaves[i], kind: NodeKind::Leaf });
 
         iter.collect_into_vec(&mut self.nodes);
 

@@ -91,8 +91,6 @@ impl BVH {
 
                 let morton = to_hilbert(union.center().block_pos());
 
-
-
                 *new_node = Node::Node {
                     morton,
                     aabb: union,
@@ -100,8 +98,6 @@ impl BVH {
                     right: right + batch_start,
                 };
             }
-
-
 
             //update loop elements
             batch_start += node_to_add * 2; //number of nodes processed, we don't use len because it could be odd
